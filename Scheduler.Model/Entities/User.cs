@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Scheduler.Model.Entities
 {
+    //dfaga
    public class User :IEntityBase
     {
         public User()
