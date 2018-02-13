@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Scheduler.Data.Abstract
 {
+    // Message the name
    public interface IEntityBaseRepository<T> where T : class,IEntityBase, new()
     {
         IEnumerable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
