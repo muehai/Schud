@@ -115,6 +115,7 @@ namespace Scheduler.API.Controllers
             return result;
         }
 
+        //Update the database
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]UserViewModel user)
         {
@@ -142,6 +143,11 @@ namespace Scheduler.API.Controllers
             return new NoContentResult();
         }
 
+        /// <summary>
+        /// Delete the ma
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
