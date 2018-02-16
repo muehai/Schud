@@ -29,6 +29,8 @@ namespace Scheduler.API
         bool useInMemoryProvider = false;
         public IConfigurationRoot Configuration1 { get; }
 
+        SchedulerDbInitializer SchedulerDb;
+
 
         //Add Start up functions
         public Startup(IHostingEnvironment env)
@@ -41,12 +43,12 @@ namespace Scheduler.API
                             .AddEnvironmentVariables();
 
 
-            if (env.IsDevelopment())
-            {
-                // This reads the configuration keys from the secret store.
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets<Startup>();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    // This reads the configuration keys from the secret store.
+            //    // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+            //    builder.AddUserSecrets<Startup>();
+            //}
 
             Configuration1 = builder.Build();
         }
@@ -103,11 +105,15 @@ namespace Scheduler.API
                     // Force Camel Case to JSON
                     opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
+            //SchedulerDbInitializer.Initialize(services.AddDbContext<>);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            SchedulerDb = new SchedulerDbInitializer();
+            SchedulerDb.Initialize(app.ApplicationServices);
             app.UseStaticFiles();
             // Add MVC to the request pipeline.
             app.UseCors(builder =>
@@ -140,8 +146,8 @@ namespace Scheduler.API
             }
 
             app.UseMvc();
-            //Add the DbContext database co
-            SchedulerDbInitializer.Initialize(app.ApplicationServices);
+         
+            //SchedulerDbInitializer.Initialize(app.ApplicationServices);
         }
     }
 }

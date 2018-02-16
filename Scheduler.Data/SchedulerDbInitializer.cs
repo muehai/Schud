@@ -8,15 +8,16 @@ namespace Scheduler.Data
 {
     public class SchedulerDbInitializer
     {
-        private static SchedulerContext context;
-        public static void Initialize(IServiceProvider serviceProvider)
+        public SchedulerContext context;
+
+        public  void Initialize(IServiceProvider serviceProvider)
         {
-            context = (SchedulerContext)serviceProvider.GetService(typeof(SchedulerContext));
+            context = (SchedulerContext)serviceProvider.GetService(typeof(SchedulerContext)); // Message 
 
             InitializeSchedules();
         }
 
-        private static void InitializeSchedules()
+        private  void InitializeSchedules()
         {
             if (!context.Users.Any())
             {
